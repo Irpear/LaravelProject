@@ -18,3 +18,11 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+
+Route::get('/contact', function() {
+    $mail = 'irsan@gmail.com';
+    return view('contact', [
+    'mail' => $mail
+        ]);
+});
