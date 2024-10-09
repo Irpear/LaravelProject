@@ -25,4 +25,10 @@ Route::get('/contact', function() {
     return view('contact', [
     'mail' => $mail
         ]);
-});
+})->name('profile');
+
+Route::get('products/{id}', function(string $id) {
+    return view('products', [
+        'id' => $id
+    ]);
+})->name('products');
