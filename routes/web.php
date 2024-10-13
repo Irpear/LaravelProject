@@ -32,3 +32,13 @@ Route::get('products/{id}', function(string $id) {
         'id' => $id
     ]);
 })->name('products');
+
+Route::get('about-us/{section}', [App\Http\Controllers\AboutUsController::class, 'show']);
+
+use App\Http\Controllers\ProductController;
+
+Route::resource('products', ProductController::class);
+
+
+
+
