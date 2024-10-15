@@ -35,10 +35,10 @@ Route::get('products/{id}', function(string $id) {
 
 Route::get('about-us/{section}', [App\Http\Controllers\AboutUsController::class, 'show']);
 
-use App\Http\Controllers\ProductController;
+Route::get('products', [App\Http\Controllers\ProductController::class, 'index']);
 
-Route::resource('products', ProductController::class);
+use App\Http\Controllers\CommentController;
 
-
+Route::get('/comments', [CommentController::class, 'index']);
 
 
