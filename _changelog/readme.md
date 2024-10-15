@@ -9,3 +9,5 @@ Changelog Laravelproject
 ## 14/10/2024
 * Laracast videos gekeken en opdrachten gemaakt met components
 
+## 15/10/2024
+* Database toegevoegd en uitgevogeld. Comments toegevoegd. 
