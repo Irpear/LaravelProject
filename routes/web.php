@@ -2,10 +2,11 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\CreateController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -40,7 +41,8 @@ Route::get('products', [App\Http\Controllers\ProductController::class, 'index'])
 
 Route::get('puzzles', [App\Http\Controllers\PuzzleController::class, 'index']) ->name('puzzles.index') -> middleware('auth');
 
-use App\Http\Controllers\CommentController;
+Route::get('create', [App\Http\Controllers\CreateController::class, 'index']) ->name('create') -> middleware('auth');
+
 
 Route::get('/comments', [CommentController::class, 'index']);
 

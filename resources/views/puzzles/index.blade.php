@@ -1,11 +1,11 @@
-@foreach($puzzles as $puzzle)
-
-    <li>
-        puzzle name: {{$puzzle ->title}}
-
-    </li>
 
 
+<x-layout>
+    @foreach($puzzles as $puzzle)
 
+        <li>
+            puzzle name: {{$puzzle ->title}}
+        </li>
+    @endforeach
 
-@endforeach
+</x-layout>
