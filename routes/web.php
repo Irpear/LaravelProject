@@ -37,6 +37,9 @@ Route::get('about-us/{section}', [App\Http\Controllers\AboutUsController::class,
 
 Route::get('products', [App\Http\Controllers\ProductController::class, 'index']);
 
+
+Route::get('puzzles', [App\Http\Controllers\PuzzleController::class, 'index']) ->name('puzzles.index') -> middleware('auth');
+
 use App\Http\Controllers\CommentController;
 
 Route::get('/comments', [CommentController::class, 'index']);
