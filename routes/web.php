@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CreateController;
+use App\Http\Controllers\PuzzleController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -39,7 +40,9 @@ Route::get('about-us/{section}', [App\Http\Controllers\AboutUsController::class,
 Route::get('products', [App\Http\Controllers\ProductController::class, 'index']);
 
 
-Route::get('puzzles', [App\Http\Controllers\PuzzleController::class, 'index']) ->name('puzzles.index') -> middleware('auth');
+//::get('puzzles', [App\Http\Controllers\PuzzleController::class, 'index']) ->name('puzzles.index') -> middleware('auth');
+Route::resource('puzzles', PuzzleController::class);
+
 
 Route::get('create', [App\Http\Controllers\CreateController::class, 'index']) ->name('create') -> middleware('auth');
 
