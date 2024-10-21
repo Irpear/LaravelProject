@@ -4,7 +4,10 @@
     @foreach($puzzles as $puzzle)
 
         <li>
-            puzzle name: {{$puzzle ->title}}
+            <a href="{{ route('puzzles.show', $puzzle) }}">
+                puzzle name: {{$puzzle ->title}}
+            </a>
+
         </li>
     @endforeach
 

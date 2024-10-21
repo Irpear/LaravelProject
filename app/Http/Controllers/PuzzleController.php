@@ -45,9 +45,9 @@ class PuzzleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Puzzle $puzzle)
     {
-        //
+        return view('puzzles.show' , compact('puzzle'));
     }
 
     /**

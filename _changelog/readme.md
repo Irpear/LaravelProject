@@ -11,3 +11,7 @@ Changelog Laravelproject
 
 ## 15/10/2024
 * Database toegevoegd en uitgevogeld. Comments toegevoegd. 
+
+## 21/10/2024
+* Navigatiebalk mooi(ig) gemaakt
+* Detailpagina per puzzel toegevoegd
