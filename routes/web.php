@@ -22,22 +22,22 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 
-Route::get('/contact', function() {
-    $mail = 'irsan@gmail.com';
-    return view('contact', [
-    'mail' => $mail
-        ]);
-})->name('profile');
-
-Route::get('products/{id}', function(string $id) {
-    return view('products', [
-        'id' => $id
-    ]);
-})->name('products');
+//Route::get('/contact', function() {
+//    $mail = 'irsan@gmail.com';
+//    return view('contact', [
+//    'mail' => $mail
+//        ]);
+//})->name('profile');
+//
+//Route::get('products/{id}', function(string $id) {
+//    return view('products', [
+//        'id' => $id
+//    ]);
+//})->name('products');
 
 Route::get('about-us/{section}', [App\Http\Controllers\AboutUsController::class, 'show']);
 
-Route::get('products', [App\Http\Controllers\ProductController::class, 'index']);
+Route::get('products', [App\Http\Controllers\ProductController::class, 'index']) ->name('products') -> middleware('auth');
 
 
 //::get('puzzles', [App\Http\Controllers\PuzzleController::class, 'index']) ->name('puzzles.index') -> middleware('auth');
