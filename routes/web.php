@@ -6,12 +6,11 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CreateController;
 use App\Http\Controllers\PuzzleController;
+use App\Http\Controllers\DashboardController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -48,5 +47,8 @@ Route::get('create', [App\Http\Controllers\CreateController::class, 'index']) ->
 
 
 Route::get('/comments', [CommentController::class, 'index']);
+
+Route::get('/my-puzzles', [PuzzleController::class, 'myPuzzles'])->name('puzzles.myPuzzles');
+
 
 
