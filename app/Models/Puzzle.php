@@ -7,5 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Puzzle extends Model
 {
+    protected $fillable = [
+        'title',
+        'description',
+        'solution',
+        'category',
+        'status',
+        'user_id',
+    ];
+
 
 }

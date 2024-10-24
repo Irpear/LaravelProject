@@ -15,3 +15,8 @@ Changelog Laravelproject
 ## 21/10/2024
 * Navigatiebalk mooi(ig) gemaakt
 * Detailpagina per puzzel toegevoegd
+
+## 24/10/2024
+* Serverside validatie toegevoegd
+* Mijn puzzels laten zien op dashboard
+* Jouw eigen puzzels kan je nu aanpassen

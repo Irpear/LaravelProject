@@ -71,10 +71,22 @@ class PuzzleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Puzzle $puzzle)
     {
-        //
+
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'solution' => 'required|string',
+            'category' => 'required|string',
+        ]);
+
+        $puzzle->update($request->only(['title', 'description', 'solution', 'category']));
+
+
+        return redirect()->route('dashboard', $puzzle);
     }
+
 
     /**
      * Remove the specified resource from storage.

@@ -24,4 +24,12 @@
         </div>
     </div>
 
+    @if ($puzzle->user_id === auth()->id())
+        <div class="p-6">
+            <a href="{{ route('puzzles.edit', $puzzle) }}" class="bg-yellow-500 text-white font-bold py-2 px-4 rounded">
+                {{ __('Bewerk puzzel') }}
+            </a>
+        </div>
+    @endif
+
 </x-layout>
