@@ -2,6 +2,17 @@
     <div class="p-8">
         <h1 class="text-3xl font-bold mb-6">Voeg een puzzel toe</h1>
 
+        @if ($errors->any())
+            <div class="bg-red-100 text-red-800 p-4 rounded mb-6">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+
         <form action="{{ url(route('puzzles.store')) }}" method="POST" class="space-y-6">
             @csrf
 

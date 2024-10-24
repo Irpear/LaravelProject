@@ -31,13 +31,21 @@ class PuzzleController extends Controller
      */
     public function store(Request $request)
     {
+
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'solution' => 'required|string',
+            'category' => 'required|in:Logica,Wiskunde,Raadsel',
+        ]);
+
         $puzzle = new Puzzle();
         $puzzle->title = $request->input('title');
         $puzzle->description = $request->input('description');
         $puzzle->solution = $request->input('solution');
         $puzzle->category = $request->input('category');
         $puzzle->status = 0;
-        $puzzle->user_id = 0;
+        $puzzle->user_id = auth()->id();
         $puzzle->save();
         return redirect(route('puzzles.index'));
     }
@@ -55,7 +63,9 @@ class PuzzleController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $puzzle = Puzzle::findOrFail($id);
+
+        return view('puzzles.edit', compact('puzzle'));
     }
 
     /**
