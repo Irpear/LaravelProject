@@ -70,16 +70,9 @@
                                                     {{ __('Login') }}
                                                 </x-dropdown-link>
 
-                                                <!-- Authentication -->
-                                                <form method="POST" action="{{ route('register') }}">
-                                                    @csrf
-
-                                                    <x-dropdown-link :href="route('register')"
-                                                                     onclick="event.preventDefault();
-                                                this.closest('form').submit();">
-                                                        {{ __('Register') }}
-                                                    </x-dropdown-link>
-                                                </form>
+                                                <x-dropdown-link :href="route('register')">
+                                                    {{ __('Registreren') }}
+                                                </x-dropdown-link>
                                             </x-slot>
                                         </x-dropdown>
                                     </div>
