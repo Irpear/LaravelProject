@@ -9,7 +9,11 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $puzzles = Puzzle::where('user_id', auth()->id())->get();
+        if (auth()->user()->role === 'admin') {
+            $puzzles = Puzzle::all();
+        } else {
+            $puzzles = Puzzle::where('user_id', auth()->id())->get();
+        }
 
         return view('dashboard', compact('puzzles'));
     }

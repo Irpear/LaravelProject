@@ -9,8 +9,11 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
+                    @if (auth()->user()->role === 'admin')
+                    <h3 class="text-2xl font-bold mb-4">Alle Puzzels</h3>
+                    @else
                     <h3 class="text-2xl font-bold mb-4">Mijn Puzzels</h3>
-
+                    @endif
                     @if ($puzzles->isEmpty())
                         <p>Je hebt nog geen puzzels toegevoegd.</p>
                     @else
