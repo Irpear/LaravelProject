@@ -13,7 +13,8 @@ class PuzzleController extends Controller
      */
     public function index()
     {
-        $puzzles = Puzzle::all();
+
+        $puzzles = Puzzle::where('status', 1)->get();
 
         return view('puzzles.index', compact('puzzles'));
     }
@@ -95,5 +96,15 @@ class PuzzleController extends Controller
     {
         //
     }
+
+    public function toggleStatus(Puzzle $puzzle)
+    {
+
+        $puzzle->status = !$puzzle->status;
+        $puzzle->save();
+
+        return redirect()->route('dashboard')->with('status', 'Puzzelstatus bijgewerkt.');
+    }
+
 }
 

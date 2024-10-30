@@ -34,6 +34,10 @@ require __DIR__.'/auth.php';
 //    ]);
 //})->name('products');
 
+
+Route::patch('/puzzles/{puzzle}/toggle-status', [PuzzleController::class, 'toggleStatus'])->name('puzzles.toggleStatus')->middleware('auth');
+
+
 Route::get('about-us/{section}', [App\Http\Controllers\AboutUsController::class, 'show']);
 
 Route::get('products', [App\Http\Controllers\ProductController::class, 'index']) ->name('products') -> middleware('auth');
