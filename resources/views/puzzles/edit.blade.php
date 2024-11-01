@@ -1,4 +1,15 @@
 <x-layout>
+    @auth
+        @if (auth()->user()->id !== $puzzle->user_id && auth()->user()->role !== 'admin')
+            <script>
+                window.location.href = "{{ route('home') }}";
+            </script>
+        @endif
+    @else
+        <script>
+            window.location.href = "{{ route('login') }}"; // of een andere redirect naar de inlogpagina
+        </script>
+    @endauth
     <div class="p-8">
         <h1 class="text-3xl font-bold mb-6">Pas een puzzel aan</h1>
 
