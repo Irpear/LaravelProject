@@ -34,11 +34,17 @@ class PuzzleController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'solution' => 'required|string',
             'category' => 'required|in:Logica,Wiskunde,Raadsel',
+        ], [
+            'title.required' => 'Voer een titel in.',
+            'description.required' => 'Voer een beschrijving in.',
+            'solution.required' => 'Voer een oplossing in.',
+            'category.required' => 'Selecteer één van de drie categorieën.',
+            'category.in' => 'De categorie moet Logica, Wiskunde of Raadsel zijn.',
         ]);
 
 

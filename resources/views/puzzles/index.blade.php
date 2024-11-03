@@ -4,7 +4,7 @@
 
         <form action="{{ route('search') }}" method="GET" class="space-y-4">
             <div>
-                <input type="text" name="query" placeholder="Zoek..." value="{{ request('query') }}" class="border p-2 rounded w-full">
+                <input type="text" name="query" placeholder="Zoek..." value="{{ old('query', request('query')) }}" class="border p-2 rounded w-full">
             </div>
 
             <div>

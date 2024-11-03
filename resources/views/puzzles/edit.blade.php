@@ -7,7 +7,7 @@
         @endif
     @else
         <script>
-            window.location.href = "{{ route('login') }}"; // of een andere redirect naar de inlogpagina
+            window.location.href = "{{ route('login') }}";
         </script>
     @endauth
     <div class="p-8">

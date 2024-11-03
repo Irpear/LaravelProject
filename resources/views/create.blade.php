@@ -18,25 +18,25 @@
 
             <div>
                 <label for="title" class="block text-lg font-semibold mb-1">Titel:</label>
-                <input type="text" name="title" id="title" required
-                       class="border border-gray-300 p-2 rounded w-full text-lg">
+                <input type="text" name="title" id="title"
+                       class="border border-gray-300 p-2 rounded w-full text-lg" value="{{ old('title') }}">
             </div>
 
             <div>
                 <label for="description" class="block text-lg font-semibold mb-1">Beschrijving:</label>
-                <textarea name="description" id="description" required
-                          class="border border-gray-300 p-2 rounded w-full text-lg" rows="4"></textarea>
+                <textarea name="description" id="description"
+                          class="border border-gray-300 p-2 rounded w-full text-lg" rows="4">{{ old('description') }}</textarea>
             </div>
 
             <div>
                 <label for="solution" class="block text-lg font-semibold mb-1">Oplossing:</label>
-                <textarea name="solution" id="solution" required
-                          class="border border-gray-300 p-2 rounded w-full text-lg" rows="4"></textarea>
+                <textarea name="solution" id="solution"
+                          class="border border-gray-300 p-2 rounded w-full text-lg" rows="4">{{ old('solution') }}</textarea>
             </div>
 
             <div>
                 <label for="category" class="block text-lg font-semibold mb-1">Categorie:</label>
-                <select name="category" id="category" required
+                <select name="category" id="category"
                         class="border border-gray-300 p-2 rounded w-full text-lg">
                     <option value="Logica">Logica</option>
                     <option value="Wiskunde">Wiskunde</option>
