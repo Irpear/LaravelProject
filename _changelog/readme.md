@@ -35,3 +35,11 @@ Changelog Laravelproject
 ## 01/11/2024
 * Deeplinken voorkomen
 * Bijna gehuild door diepere validatie
+
+## 02/11/2024
+* Zoekfunctie toegevoegd
+* Filterfunctie toegevoegd
+* Diepere validatie toegevoegd, na 3 goedgekeurde puzzels hoeven ze niet meer goedgekeurd te worden.
+
+
+

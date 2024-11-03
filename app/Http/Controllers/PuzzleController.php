@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Puzzle;
 use Illuminate\Http\Request;
 use PhpParser\Node\Stmt\Return_;
+use Illuminate\Support\Facades\Auth;
+
 
 class PuzzleController extends Controller
 {
@@ -32,7 +34,6 @@ class PuzzleController extends Controller
      */
     public function store(Request $request)
     {
-
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
@@ -40,12 +41,22 @@ class PuzzleController extends Controller
             'category' => 'required|in:Logica,Wiskunde,Raadsel',
         ]);
 
+
+        $user = Auth::user();
+        $aantalPuzzels = Puzzle::where('user_id', $user->id)
+            ->where('status', 1)
+            ->count();
+
         $puzzle = new Puzzle();
         $puzzle->title = $request->input('title');
         $puzzle->description = $request->input('description');
         $puzzle->solution = $request->input('solution');
         $puzzle->category = $request->input('category');
-        $puzzle->status = 0;
+        if ($aantalPuzzels >= 3){
+            $puzzle->status = 1;
+        } else {
+            $puzzle->status = 0;
+        }
         $puzzle->user_id = auth()->id();
         $puzzle->save();
         return redirect(route('puzzles.index'));
@@ -56,7 +67,7 @@ class PuzzleController extends Controller
      */
     public function show(Puzzle $puzzle)
     {
-        return view('puzzles.show' , compact('puzzle'));
+        return view('puzzles.show', compact('puzzle'));
     }
 
     /**
@@ -114,10 +125,10 @@ class PuzzleController extends Controller
 
         $results = Puzzle::query()
             ->where('status', 1)
-            ->when($query, function($queryBuilder) use ($query) {
+            ->when($query, function ($queryBuilder) use ($query) {
                 return $queryBuilder->where('title', 'like', '%' . $query . '%');
             })
-            ->when($category, function($queryBuilder) use ($category) {
+            ->when($category, function ($queryBuilder) use ($category) {
                 return $queryBuilder->where('category', $category);
             })
             ->get();
