@@ -54,5 +54,4 @@ Route::get('/comments', [CommentController::class, 'index']);
 
 Route::get('/my-puzzles', [PuzzleController::class, 'myPuzzles'])->name('puzzles.myPuzzles');
 
-
-
+Route::get('/search', [PuzzleController::class, 'search'])->name('search');

@@ -106,5 +106,27 @@ class PuzzleController extends Controller
         return redirect()->route('dashboard')->with('status', 'Puzzelstatus bijgewerkt.');
     }
 
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $category = $request->input('category');
+
+        $results = Puzzle::query()
+            ->where('status', 1)
+            ->when($query, function($queryBuilder) use ($query) {
+                return $queryBuilder->where('title', 'like', '%' . $query . '%');
+            })
+            ->when($category, function($queryBuilder) use ($category) {
+                return $queryBuilder->where('category', $category);
+            })
+            ->get();
+
+        return view('search-results', compact('results', 'query', 'category'));
+    }
+
+
 }
+
+
 
