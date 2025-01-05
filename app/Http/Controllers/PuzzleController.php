@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Puzzle;
+use App\Models\User;
 use Illuminate\Http\Request;
 use PhpParser\Node\Stmt\Return_;
 use Illuminate\Support\Facades\Auth;
@@ -83,6 +84,11 @@ class PuzzleController extends Controller
     {
         $puzzle = Puzzle::findOrFail($id);
 
+        $user = auth()->user();
+        if (!$user || ($user->role !== 'admin' && $puzzle->user_id !== $user->id)) {
+            abort(403, 'Je hebt geen toegang tot deze puzzel.');
+        }
+
         return view('puzzles.edit', compact('puzzle'));
     }
 
@@ -91,6 +97,10 @@ class PuzzleController extends Controller
      */
     public function update(Request $request, Puzzle $puzzle)
     {
+
+        if (auth()->user()->role !== 'admin' && $puzzle->user_id !== auth()->id()) {
+            abort(403, 'Je hebt geen toegang tot deze puzzel.');
+        }
 
         $request->validate([
             'title' => 'required|string|max:255',
@@ -116,6 +126,10 @@ class PuzzleController extends Controller
 
     public function toggleStatus(Puzzle $puzzle)
     {
+
+        if (auth()->user()->role !== 'admin' && $puzzle->user_id !== auth()->id()) {
+            abort(403, 'Je hebt geen toegang tot deze puzzel.');
+        }
 
         $puzzle->status = !$puzzle->status;
         $puzzle->save();
