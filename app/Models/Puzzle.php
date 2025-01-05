@@ -11,10 +11,15 @@ class Puzzle extends Model
         'title',
         'description',
         'solution',
-        'category',
+        'category_id',
         'status',
         'user_id',
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
 
 
 }

@@ -46,14 +46,17 @@
             </div>
 
             <div>
-                <label for="category" class="block text-lg font-semibold mb-1">Categorie:</label>
-                <select name="category" id="category" required
+                <label for="category_id" class="block text-lg font-semibold mb-1">Categorie:</label>
+                <select name="category_id" id="category_id" required
                         class="border border-gray-300 p-2 rounded w-full text-lg">
-                    <option value="Logica" {{ $puzzle->category == 'Logica' ? 'selected' : '' }}>Logica</option>
-                    <option value="Wiskunde" {{ $puzzle->category == 'Wiskunde' ? 'selected' : '' }}>Wiskunde</option>
-                    <option value="Raadsel" {{ $puzzle->category == 'Raadsel' ? 'selected' : '' }}>Raadsel</option>
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}" {{ $puzzle->category_id == $category->id ? 'selected' : '' }}>
+                            {{ $category->name }}
+                        </option>
+                    @endforeach
                 </select>
             </div>
+
 
             <button type="submit"
                     class="bg-blue-600 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition-colors duration-200">

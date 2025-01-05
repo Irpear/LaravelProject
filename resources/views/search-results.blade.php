@@ -8,11 +8,13 @@
             </div>
 
             <div>
-                <select name="category" class="border p-2 rounded w-full">
+                <select name="category_id" class="border p-2 rounded w-full">
                     <option value="">Alle categorieën</option>
-                    <option value="Logica" {{ request('category') == 'Logica' ? 'selected' : '' }}>Logica</option>
-                    <option value="Wiskunde" {{ request('category') == 'Wiskunde' ? 'selected' : '' }}>Wiskunde</option>
-                    <option value="Raadsel" {{ request('category') == 'Raadsel' ? 'selected' : '' }}>Raadsel</option>
+                    @foreach($categories as $category)
+                    <option value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>
+                        {{ $category->name }}
+                    </option>
+                    @endforeach
                 </select>
             </div>
 
@@ -23,7 +25,7 @@
         </form>
 
         @if(isset($results) && $results->isNotEmpty())
-            <p class="mt-4">Resultaten voor: "{{ $query }}" in categorie: {{ request('category') ? request('category') : 'Alle categorieën' }}</p>
+            <p class="mt-4">Resultaten voor: "{{ $query }}" in categorie: {{ request('category_id') ? $categories->find(request('category_id'))->name : 'Alle categorieën' }}</p>
             <div class="grid grid-cols-2 gap-4 mt-4">
                 @foreach($results as $result)
                     <div>

@@ -11,15 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('puzzles', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->timestamps();
-            $table->string('title');
-            $table->text('description');
-            $table->text('solution');
-            $table->foreignId('category_id');
-            $table->boolean('status');
-            $table->foreignId('user_id');
         });
     }
 
@@ -28,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('puzzles');
+        Schema::dropIfExists('categories');
     }
 };

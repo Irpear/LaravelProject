@@ -8,11 +8,13 @@
             </div>
 
             <div>
-                <select name="category" class="border p-2 rounded w-full">
+                <select name="category_id" class="border p-2 rounded w-full">
                     <option value="">Alle categorieën</option>
-                    <option value="Logica" {{ request('category') == 'Logica' ? 'selected' : '' }}>Logica</option>
-                    <option value="Wiskunde" {{ request('category') == 'Wiskunde' ? 'selected' : '' }}>Wiskunde</option>
-                    <option value="Raadsel" {{ request('category') == 'Raadsel' ? 'selected' : '' }}>Raadsel</option>
+                    @foreach($categories as $category)
+                    <option value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>
+                        {{ $category->name }}
+                    </option>
+                    @endforeach
                 </select>
             </div>
 
@@ -21,6 +23,7 @@
                 <a href="{{ route('puzzles.index') }}" class="bg-gray-500 mb-4 text-white px-4 py-2 rounded hover:bg-gray-600">Filters verwijderen</a>
             </div>
         </form>
+
         <div class="grid grid-cols-2 gap-4">
             @foreach($puzzles as $puzzle)
                 <div>

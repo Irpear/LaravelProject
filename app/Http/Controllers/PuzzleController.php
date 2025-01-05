@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Puzzle;
 use App\Models\User;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use PhpParser\Node\Stmt\Return_;
 use Illuminate\Support\Facades\Auth;
@@ -16,10 +17,10 @@ class PuzzleController extends Controller
      */
     public function index()
     {
-
+        $categories = Category::all();
         $puzzles = Puzzle::where('status', 1)->get();
 
-        return view('puzzles.index', compact('puzzles'));
+        return view('puzzles.index', compact('puzzles', 'categories'));
     }
 
     /**
@@ -27,8 +28,10 @@ class PuzzleController extends Controller
      */
     public function create()
     {
-        return view('create');
+        $categories = Category::all();
+        return view('create', compact('categories'));
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -39,13 +42,12 @@ class PuzzleController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'solution' => 'required|string',
-            'category' => 'required|in:Logica,Wiskunde,Raadsel',
+            'category_id' => 'required|exists:categories,id',
         ], [
             'title.required' => 'Voer een titel in.',
             'description.required' => 'Voer een beschrijving in.',
             'solution.required' => 'Voer een oplossing in.',
-            'category.required' => 'Selecteer één van de drie categorieën.',
-            'category.in' => 'De categorie moet Logica, Wiskunde of Raadsel zijn.',
+            'category_id.required' => 'Selecteer één van de drie categorieën.',
         ]);
 
 
@@ -58,7 +60,7 @@ class PuzzleController extends Controller
         $puzzle->title = $request->input('title');
         $puzzle->description = $request->input('description');
         $puzzle->solution = $request->input('solution');
-        $puzzle->category = $request->input('category');
+        $puzzle->category_id = $request->input('category_id');
         if ($aantalPuzzels >= 3){
             $puzzle->status = 1;
         } else {
@@ -83,14 +85,16 @@ class PuzzleController extends Controller
     public function edit(string $id)
     {
         $puzzle = Puzzle::findOrFail($id);
-
+        $categories = Category::all();
         $user = auth()->user();
+
         if (!$user || ($user->role !== 'admin' && $puzzle->user_id !== $user->id)) {
             abort(403, 'Je hebt geen toegang tot deze puzzel.');
         }
 
-        return view('puzzles.edit', compact('puzzle'));
+        return view('puzzles.edit', compact('puzzle', 'categories'));
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -106,10 +110,10 @@ class PuzzleController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'solution' => 'required|string',
-            'category' => 'required|string',
+            'category_id' => 'required|exists:categories,id',
         ]);
 
-        $puzzle->update($request->only(['title', 'description', 'solution', 'category']));
+        $puzzle->update($request->only(['title', 'description', 'solution', 'category_id']));
 
 
         return redirect()->route('dashboard', $puzzle);
@@ -141,7 +145,8 @@ class PuzzleController extends Controller
     public function search(Request $request)
     {
         $query = $request->input('query');
-        $category = $request->input('category');
+        $category = $request->input('category_id');
+        $categories = Category::all();
 
         $results = Puzzle::query()
             ->where('status', 1)
@@ -149,12 +154,13 @@ class PuzzleController extends Controller
                 return $queryBuilder->where('title', 'like', '%' . $query . '%');
             })
             ->when($category, function ($queryBuilder) use ($category) {
-                return $queryBuilder->where('category', $category);
+                return $queryBuilder->where('category_id', $category);
             })
             ->get();
 
-        return view('search-results', compact('results', 'query', 'category'));
+        return view('search-results', compact('results', 'query', 'category', 'categories'));
     }
+
 
 
 }

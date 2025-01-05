@@ -12,7 +12,6 @@
             </div>
         @endif
 
-
         <form action="{{ url(route('puzzles.store')) }}" method="POST" class="space-y-6">
             @csrf
 
@@ -35,12 +34,13 @@
             </div>
 
             <div>
-                <label for="category" class="block text-lg font-semibold mb-1">Categorie:</label>
-                <select name="category" id="category"
-                        class="border border-gray-300 p-2 rounded w-full text-lg">
-                    <option value="Logica">Logica</option>
-                    <option value="Wiskunde">Wiskunde</option>
-                    <option value="Raadsel">Raadsel</option>
+                <label for="category_id" class="block text-lg font-semibold mb-1">Categorie:</label>
+                <select name="category_id" id="category_id" class="border border-gray-300 p-2 rounded w-full text-lg">
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                            {{ $category->name }}
+                        </option>
+                    @endforeach
                 </select>
             </div>
 
